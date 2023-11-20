@@ -1,0 +1,111 @@
+\RequirePackage{snapshot}
+\documentclass [11pt, fancyhdr, twoside] {article}
+\usepackage{float, graphicx, caption, amssymb, natbib}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{tabulary}
+\usepackage [left=2.5cm, top=2.5cm, bottom=2.5cm, right=3cm] {geometry}  %% see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} %% or letter or a5paper or ... etc
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+\usepackage[left]{lineno}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+
+\renewcommand{\linenumberfont}{\normalfont\tiny\color{gray}}
+
+\newcommand{\rw}{\textcolor{red}}
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[RO,LE]{AVT-SET-396: Technological Challenges due to Hypersonic Flight}
+\fancyhead[RO]{Hickey et al.}
+\fancyfoot[RO,LE]{Page-\thepage}
+\fancyfoot[C]{}
+\fancyfoot[RE, LO]{Created: \today}
+
+\usepackage{blindtext}
+
+\newcounter {note}
+\stepcounter{note}
+
+\renewcommand{\abstractname}{Abstract}
+
+\newcommand {\Note} [1] {
+    \marginpar {
+        \tiny {
+            {\color{gray}{\thenote  \  #1}}
+            }
+        }
+    \stepcounter {note}
+}
+
+\newcommand {\MNote} [1] {
+    \marginpar {
+        \tiny {
+            {\color{gray}{#1 }}
+            }
+        }
+}
+
+\begin{document}
+
+\title{Towards integrated thermal management prediction of aerothermal heating at hypersonic conditions}
+\author {Jean-Pierre Hickey, Jeswin Joseph\\ University of Waterloo \\ \\
+Ryan Whitside, Ed Farnfield, Bryan Godbolt\\
+Unmanned Vehicle Applied Dynamics (UVAD)}
+
+\date{\today}
+
+\maketitle
+\begin{abstract}
+The long-term research objective is to develop an integrated framework for accurate prediction of thermal loading and thermal management for hypersonic vehicles. The predictive modeling of aerothermal heating represents a highly multiscale problem that integrates advances in the high-fidelity turbulent wall modeling and conjugate heat transfer with unsteady, time-history trajectory estimation. This work will summarize the state-of-the-art in each subfield and present a roadmap towards the development of an integrated thermal management prediction and uncertainty quantification. \rw{explicitly include SBLIs?}
+\end{abstract}
+%\linenumbers
+
+\section{Background}
+Mitigation and control of aerothermal heating represents one of the most challenging aspects of hypersonic flight. Protection against extreme wall temperatures in a hypersonic vehicle is necessary and constrains the performance envelope; therefore, accurate prediction and uncertainty quantification of the thermal loading are needed for optimal future designs. Predictive modeling of the applied aerothermal heating problem is particularly challenging because it lies at the intersection of the fields of turbulence, thermodynamics, heat transfer, aerodynamics, and material science. The state of research on each of these facets of hypersonics is advancing, but many outstanding modeling challenges remain toward accurate aerothermal predictions. These problems are further compounded by the time-varying trajectory considerations and unsteady internal heat generation that are typically encountered during flight. Thus, predictive modeling of the integration of thermal protection systems in hypersonic vehicles is a critical component of mission success and requires a holistic understanding of these problems.
+
+
+Although many advances in predictive modeling in hypersonic flight have been made, the multi-disciplinary integration requires a multi-scale approach to the problem. Researchers at the University of Waterloo in collaboration with their industrial partners at UVAD have been developing an understanding of various aspects of this problem including: turbulent boundary layer near-wall modeling under nonadiabatic hypersonic conditions, conjugate heat transfer in aerothermal heating, active thermal protection systems, and low-dimensional trajectory optimization. The long-term objective lies in the integration of these various components that will lead towards a  predictive framework that can accurately model the time-varying thermal stresses, application-specific optimization of thermal protection systems, and, ultimately, an uncertainty quantification  to assist in the design for a holistic thermal management system.
+
+
+As part of the research seminar, we will present a review of the recent advances in each of these subdisciplines and show how these advances are contributing towards developing an integrated thermal management prediction for aerothermal heating.
+
+
+
+\subsection{Advances in near-wall modeling}
+Predictive modeling of wall-bounded flows is based on the accurate computation of local velocity and temperature gradients at the wall. In high-speed turbulent boundary layers, gradient estimation requires either a very fine wall-normal mesh resolution, at severe computational cost, or an accurate wall model. The latter is particularly attractive, as it provides a drastic reduction in the overall computational cost but must rely on sound modeling assumptions. The velocity transformations used for classical wall models fail for nonadiabatic walls under hypersonic conditions, and many works have advanced the state-of-the-art in this field \citep{Griffin_Fu_Moin_2021,Younes_2021,Younes_Hickey_2023}. Yet, a robust wall model capable of accurately modeling the severe thermophysical gradients, shock boundary layer interactions, conjugate, and nonequilibrium states is still in development. The wall-modeling paradigm is rapidly advancing in conventional aerodynamic computations; the development of wall-models for complex hypersonic flows will drastically enable a higher fidelity predictive modeling of \rw{aerothermal heating, thereby reducing the uncertainty in the requirements and development time of associated thermal protection systems.} 
+
+
+
+\subsection{Conjugate heat transfer at hypersonic conditions}
+Heat transfer characteristics in aerothermal heating are critical to the development of thermal management systems. \rw{In addition to the external aerothermal loads, hypersonic systems generate a significant amount of heat through tightly-integrated propulsion systems and will likely carry internal heat-generating electronic components. Managing the combined vehicle heat loads is critical to maintaining vehicle integrity as well as protecting thermosensitive equipment.} Therefore, the coupled complexity between aerothermal heating and internal heat flux is a key consideration for predictive modeling of thermal management systems. A recent review of numerical modeling of aerothermal heating \citep{Lewis_Hickey_2023} highlights the complexity of accurate predictions due to the strong coupling between the phases, further strengthening the need for accurate wall models.
+
+
+
+\subsection{Active thermal protection systems and transpiration cooling}
+The use of active thermal protection systems can help mitigate the thermal load on the vehicle. Research at the University of Waterloo has focused on the use of transpiration cooling in turbulent boundary layers to mitigate thermal loads \citep{Christopher_Peter_Kloker_Hickey_2020,Bukva_Zhang_Christopher_Hickey_2021}. The integration of accurate modeling of transpiration cooling within the context of wall modeling at hypersonic conditions remains unresolved, especially for the consideration of time-dependent maximum thermal loading arising in a turbulent boundary layer. \rw{... area of active or future research?}
+
+
+
+
+\subsection{Low-order modeling of trajectory and flight planning}
+
+The accurate prediction of the thermal loading in hypersonic vehicles represents a time-integrated problem; therefore, consideration of the history effects of these thermal loads represents a necessary condition. To this end, we are developing a low-order modeling framework, based on SUAVE \citep{MacDonald_SUAVE_2017}, to explore time-varying thermal loading. 
+
+
+
+\section{Towards integration and uncertainty quantification}
+The research work seeks to combine advances in the above subfields towards the development of an integrated predictive framework for aerothermal heating. Multi-scale modeling includes the consideration of time-varying integrated thermal loading based on flight trajectory, as well as conjugate heat transfer prediction via wall-modeled simulations under hypersonic conditions. This paper will summarize the state-of-the-art in each subdiscipline and provide a roadmap for the development of a holistic predictive modeling framework.
+
+
+
+\bibliographystyle{unsrtnat}
+\bibliography{bibJP.bib}
+
+\end{document}
